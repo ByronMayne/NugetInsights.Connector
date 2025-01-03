@@ -7,6 +7,7 @@
         <ItemGroup>
             <__NugetInsightsVariablesLines Include="$instrumentationKey = &quot;$(NugetInsightsInstrumentationKey)&quot;" />
             <__NugetInsightsVariablesLines Include="$insightsConnectorVersion = &quot;$(Version)&quot;"></__NugetInsightsVariablesLines>
+            <__NugetInsightsVariablesLines Include="$insightsIngestionUrl =  &quot;$(NugetInsightsIngestionUrl)&quot;" />
         </ItemGroup>
         <WriteLinesToFile File="$(__NugetInsightsVariablesPath)"
             Lines="@(__NugetInsightsVariablesLines)" 
