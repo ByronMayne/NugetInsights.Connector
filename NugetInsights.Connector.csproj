@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.Build.NoTargets/1.0.26" >
+<Project Sdk="Microsoft.Build.NoTargets/1.0.26">
   <PropertyGroup>
     <IsPackable>true</IsPackable>
     <IncludeSource>false</IncludeSource>
@@ -9,10 +9,27 @@
     <Description>
         Appends a powershell script called `init.ps1` which contains stats about whenever a package is installed on a project.
     </Description>
+    <Title>Nuget Insights Connector</Title>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
   </PropertyGroup>
   <ItemGroup>
     <None Include="$(MSBuildThisFileDirectory)Content/**/*.ps1" Pack="True" PackagePath="/Content" />
     <None Include="$(MSBuildThisFileName).props" Pack="True" PackagePath="/Build" />
     <None Include="$(MSBuildThisFileName).targets" Pack="True" PackagePath="/Build" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="GitVersion.MsBuild" Version="6.1.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Icon.png" Pack="True" PackagePath="icon.png"/>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 </Project>
