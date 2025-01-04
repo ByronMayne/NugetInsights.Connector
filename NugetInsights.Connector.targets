@@ -6,7 +6,8 @@
         </PropertyGroup>
         <ItemGroup>
             <__NugetInsightsVariablesLines Include="$instrumentationKey = &quot;$(NugetInsightsInstrumentationKey)&quot;" />
-            <__NugetInsightsVariablesLines Include="$insightsConnectorVersion = &quot;$(Version)&quot;"></__NugetInsightsVariablesLines>
+            <__NugetInsightsVariablesLines Include="$packageId = &quot;$(PackageID)&quot;"/>
+            <__NugetInsightsVariablesLines Include="$packageVersion = &quot;$(PackageVersion)&quot;"/>
             <__NugetInsightsVariablesLines Include="$insightsIngestionUrl =  &quot;$(NugetInsightsIngestionUrl)&quot;" />
         </ItemGroup>
         <WriteLinesToFile File="$(__NugetInsightsVariablesPath)"
@@ -14,13 +15,10 @@
             Overwrite="true" />
         <ItemGroup>
             <TfmSpecificPackageFile Include="$(__NugetInsightsVariablesPath)">
-                <PackagePath>ps/</PackagePath>
+                <PackagePath>tools/</PackagePath>
             </TfmSpecificPackageFile>
             <TfmSpecificPackageFile Include="$(MSBuildThisFileDirectory)../Content/tools/*.ps1">
                 <PackagePath>tools/</PackagePath>
-            </TfmSpecificPackageFile>
-            <TfmSpecificPackageFile Include="$(MSBuildThisFileDirectory)../Content/ps/*.ps1">
-                <PackagePath>ps/</PackagePath>
             </TfmSpecificPackageFile>
         </ItemGroup>
     </Target>

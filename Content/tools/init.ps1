@@ -4,12 +4,10 @@
 param($installPath, $toolsPath, $package, $project)
 
 # Import other scripts 
-. $PSScriptRoot\..\ps\Hashing.ps1
-. $PSScriptRoot\..\ps\BuildAgent.ps1
-. $PSScriptRoot\..\ps\Variables.ps1
+. $PSScriptRoot\Hashing.ps1
+. $PSScriptRoot\BuildAgent.ps1
+. $PSScriptRoot\Variables.ps1
 
-$packageName = $package.Id;
-$packageVersion = $package.Version;
 $buildAgent = Get-BuildAgent
 $machineHash =  Get-MachineHash
 
@@ -26,8 +24,8 @@ $tracePayload = @{
         baseData = @{
             name = "package_init"
             properties = @{
-                "PackageName" = "$packageName"
-                "PackageVersion" = "$packageVersion"
+                "PackageId" = $packageId
+                "PackageVersion" = $packageVersion
                 "BuildAgent" = $buildAgent
                 "MachineId" = $machineHash
                 "NugetInsights.Connector.Version" = $insightsConnectorVersion

@@ -1,5 +1,6 @@
 <Project>
     <PropertyGroup>
+        <NoWarn>$(NoWarn);NU5110;NU5111</NoWarn>
         <TargetsForTfmSpecificContentInPackage>$(TargetsForTfmSpecificContentInPackage);CopyNugetInsightsScripts</TargetsForTfmSpecificContentInPackage>
         <NugetInsightsInstrumentationKey Condition="'$(NugetInsightsInstrumentationKey)' == ''">4ded4716-3eaf-4100-91cf-5a8bd8523278</NugetInsightsInstrumentationKey>
         <NugetInsightsIngestionUrl Condition="'$(NugetInsightsIngestionUrl)' == ''">https://dc.services.visualstudio.com/v2/track</NugetInsightsIngestionUrl>
