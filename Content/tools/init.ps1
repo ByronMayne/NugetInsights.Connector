@@ -7,6 +7,7 @@ param($installPath, $toolsPath, $package, $project)
 . $PSScriptRoot\Hashing.ps1
 . $PSScriptRoot\BuildAgent.ps1
 . $PSScriptRoot\Variables.ps1
+. $PSScriptRoot\Location.ps1
 
 $buildAgent = Get-BuildAgent
 $machineHash =  Get-MachineHash
@@ -29,11 +30,14 @@ $tracePayload = @{
                 "BuildAgent" = $buildAgent
                 "MachineId" = $machineHash
                 "NugetInsights.Connector.Version" = $insightsConnectorVersion
+                # Roughly guesses the city the user is in
+                "Latitude" = $latitude
+                "Longitude" = $longitude
             }
         }
     }
 }
-$traceJson = $tracePayload | ConvertTo-Json -Depth 10 
 try {
+    $traceJson = $tracePayload | ConvertTo-Json -Depth 10 
     Invoke-WebRequest -Uri $insightsIngestionUrl -Method Post -Body $traceJson -ContentType "application/json" | Out-Null
 } catch {}
