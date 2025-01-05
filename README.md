@@ -1,19 +1,32 @@
 # NugetInsights.Collector 
 
-Have you ever wanted to get more information about your NuGet packages? As a package developer myself I often wondered if my packages were even being used. In part to help motivate me and in another just for the curiosity I wanted to add telemetry to all my packages.  That is exactly what this library does. This is exactly what NugetInsights.Collector does!
+Gain insights into how your NuGet packages are being used.
+
+As a NuGet package developer, I often wondered whether my packages were being used and how they were performing. To address this curiosity and stay motivated, I decided to add lightweight telemetry to my packages. NugetInsights.Collector simplifies this process for package developers by providing an easy way to collect usage data.
 
 
 # How it works
 
-This project injects a `init.ps1` powershell script into the `tools` folder of the generated NuGet package. This script will be called by the NuGet package manager whenever your package is added. This will publish the event to my private Azure Application Insight instance which I will expose publicly on Grafana. 
+NugetInsights.Collector adds an `init.ps1` PowerShell script to the tools folder of the generated NuGet package. This script is automatically executed by the NuGet package manager whenever the package is installed. When executed, the script sends a telemetry event to an Azure Application Insights instance, which is publicly accessible through Grafana.
+Key Features:
 
-All the data I collect has no way of being mapped back to a specific user. Don't trust me? [Read the code yourself](./Content/tools/init.ps1), it's very bare bones as the telemetry is posted using a simple REST request. 
+* **Transparency**: All collected data is anonymized and cannot be linked to specific users.
+* **Open Source**: Don't just take my word for [it—review](./Content/tools/init.ps1) the script yourself. The telemetry process is minimal, using a simple REST request to send data.
 
 
-# Notes
-* Right nos this is very much a work in progress 
-* At some point I will require packages to register before hand, right now it's open.
-* All the costs are being paid for me personally. 
+## Customization  
+
+Currently this posts the information to my Azure subscription however you can changing the following MSBuild property values.
+
+`NugetInsightsInstrumentationKey`: The key to application insights instance 
+`NugetInsightsIngestionUrl`: The url to the application insights. 
+
+```xml
+<PropertyGroup>
+    <NugetInsightsIngestionUrl>{Application Insights Url}</NugetInsightsIngestionUrl>
+    <NugetInsightsInstrumentationKey>{Your Key}</NugetInsightsInstrumentationKey>
+</PropertyGroup>
+```
 
 
 
