@@ -1,10 +1,21 @@
+function Get-StringHash {
+    param (
+        [Parameter(Mandatory=$true, ParameterSetName ='Input')]
+        [string] $input 
+    )
+    $bytes = [System.Text.Encoding]::UTF8.GetBytes($data)
+    $sha256 = [System.Security.Cryptography.SHA256]::Create()
+    $hashBytes = $sha256.ComputeHash($bytes)
+    return $hashBytes.ToString("x2");
+}
+
 function Get-MachineHash {
     try {
         $machineName = [Environment]::MachineName
         $userName = [Environment]::UserName
         $processorCount = [Environment]::ProcessorCount
         $osVersion = [System.Environment]::OSVersion;
-        $data = "$machineName|$userName|$processorCount|$osVersion"
+        $data = "$machineName|$userName|$processorCount|$osVersion|"
         $bytes = [System.Text.Encoding]::UTF8.GetBytes($data)
         $sha256 = [System.Security.Cryptography.SHA256]::Create()
         $hashBytes = $sha256.ComputeHash($bytes)
