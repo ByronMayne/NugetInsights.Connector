@@ -5,9 +5,12 @@
     <IncludeSymbols>false</IncludeSymbols>
     <IncludeBuildOutput>false</IncludeBuildOutput>
     <TargetFramework>netstandard2.1</TargetFramework>
+    <RepositoryType>git</RepositoryType>
+    <RepositoryUrl>https://github.com/ByronMayne/NugetInsights.Connector</RepositoryUrl>
+    <DevelopmentDependency>true</DevelopmentDependency>
     <NoWarn>$(NoWarn);NU5110;NU5107;NU5111;NU5128</NoWarn>
     <Description>
-        Appends a powershell script called `init.ps1` which contains stats about whenever a package is installed on a project.
+      Produces non-identifiable telemetry information which raise events for when NuGet packages are installed or uninstalled.
     </Description>
     <Title>Nuget Insights Connector</Title>
     <PackageReadmeFile>README.md</PackageReadmeFile>

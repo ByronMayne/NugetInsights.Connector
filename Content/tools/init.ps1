@@ -3,13 +3,16 @@
 # I can see which projects are being used the most.
 param($installPath, $toolsPath, $package, $project)
 
+
 # Import other scripts 
-. $PSScriptRoot\Hashing.ps1
-. $PSScriptRoot\BuildAgent.ps1
 . $PSScriptRoot\Variables.ps1
+. $PSScriptRoot\BuildAgent.ps1
+. $PSScriptRoot\Location.ps1
+. $PSScriptRoot\Hashing.ps1
 
 $buildAgent = Get-BuildAgent
 $machineHash =  Get-MachineHash
+$projectPathHash = Get-StringHash -InputString $project.FileName 
 
 $tracePayload = @{
     name = "Microsoft.ApplicationInsights.Event"
@@ -28,12 +31,15 @@ $tracePayload = @{
                 "PackageVersion" = $packageVersion
                 "BuildAgent" = $buildAgent
                 "MachineId" = $machineHash
+                "ProjectPathHash" = $projectPathHash
                 "NugetInsights.Connector.Version" = $insightsConnectorVersion
+                "Latitude" = $latitude
+                "Longitude" = $longitude
             }
         }
     }
 }
-$traceJson = $tracePayload | ConvertTo-Json -Depth 10 
 try {
+    $traceJson = $tracePayload | ConvertTo-Json -Depth 10 
     Invoke-WebRequest -Uri $insightsIngestionUrl -Method Post -Body $traceJson -ContentType "application/json" | Out-Null
 } catch {}
