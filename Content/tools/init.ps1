@@ -12,7 +12,7 @@ param($installPath, $toolsPath, $package, $project)
 
 $buildAgent = Get-BuildAgent
 $machineHash =  Get-MachineHash
-$projectHash = Get-StringHash -Input $project.FileName 
+$projectPathHash = Get-StringHash -InputString $project.FileName 
 
 $tracePayload = @{
     name = "Microsoft.ApplicationInsights.Event"
@@ -31,7 +31,7 @@ $tracePayload = @{
                 "PackageVersion" = $packageVersion
                 "BuildAgent" = $buildAgent
                 "MachineId" = $machineHash
-                "ProjectHash" = $projectHash
+                "ProjectPathHash" = $projectPathHash
                 "NugetInsights.Connector.Version" = $insightsConnectorVersion
                 "Latitude" = $latitude
                 "Longitude" = $longitude
