@@ -3,14 +3,16 @@
 # I can see which projects are being used the most.
 param($installPath, $toolsPath, $package, $project)
 
+
 # Import other scripts 
-. $PSScriptRoot\Hashing.ps1
-. $PSScriptRoot\BuildAgent.ps1
 . $PSScriptRoot\Variables.ps1
+. $PSScriptRoot\BuildAgent.ps1
 . $PSScriptRoot\Location.ps1
+. $PSScriptRoot\Hashing.ps1
 
 $buildAgent = Get-BuildAgent
 $machineHash =  Get-MachineHash
+$projectHash = Get-StringHash -Input $project.FileName 
 
 $tracePayload = @{
     name = "Microsoft.ApplicationInsights.Event"
@@ -29,8 +31,8 @@ $tracePayload = @{
                 "PackageVersion" = $packageVersion
                 "BuildAgent" = $buildAgent
                 "MachineId" = $machineHash
+                "ProjectHash" = $projectHash
                 "NugetInsights.Connector.Version" = $insightsConnectorVersion
-                # Roughly guesses the city the user is in
                 "Latitude" = $latitude
                 "Longitude" = $longitude
             }
