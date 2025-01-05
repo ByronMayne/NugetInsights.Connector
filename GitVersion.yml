@@ -1,2 +1,12 @@
-mode: ContinuousDeployment 
-branches: {}
+mode: ContinuousDeployment
+branches:
+  master:
+    tag: ''
+    is-mainline: true
+    increment: Patch
+  develop:
+    tag: 'alpha'
+    is-mainline: false
+    increment: Patch
+ignore:
+  sha: []
